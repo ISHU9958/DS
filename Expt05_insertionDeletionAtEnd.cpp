@@ -1,74 +1,40 @@
 #include <iostream>
-#include <vector>
 
-const int MAX_SIZE = 100;  // Maximum size of the array
+using namespace std;
 
-class DynamicArray {
-private:
-    std::vector<int> arr;
-
-public:
-    // Function to insert an element at the end of the array
-    void insertAtEnd(int element) {
-        if (arr.size() < MAX_SIZE) {
-            arr.push_back(element);
-            std::cout << "Element " << element << " inserted at the end." << std::endl;
-        } else {
-            std::cout << "Overflow: Cannot insert element. Array is full." << std::endl;
-        }
-    }
-
-    // Function to delete an element from the end of the array
-    void deleteFromEnd() {
-        if (!arr.empty()) {
-            int deletedElement = arr.back();
-            arr.pop_back();
-            std::cout << "Element " << deletedElement << " deleted from the end." << std::endl;
-        } else {
-            std::cout << "Underflow: Cannot delete element. Array is empty." << std::endl;
-        }
-    }
-
-    // Function to display the current array
-    void display() {
-        if (!arr.empty()) {
-            std::cout << "Current Array: ";
-            for (int i : arr) {
-                std::cout << i << " ";
-            }
-            std::cout << std::endl;
-        } else {
-            std::cout << "Array is empty." << std::endl;
-        }
-    }
-};
+const int MAX_SIZE = 100; // Define the maximum size of the array.
 
 int main() {
-    DynamicArray dynamicArr;
-    int choice, element;
+    int arr[MAX_SIZE];
+    int n, choice, element, size = 0;
 
-    while (true) {
-        std::cout << "1. Insert at end\n2. Delete from end\n3. Display array\n4. Exit\n";
-        std::cout << "Enter your choice: ";
-        std::cin >> choice;
+    cin >> n;
 
-        switch (choice) {
-            case 1:
-                std::cout << "Enter the element to insert: ";
-                std::cin >> element;
-                dynamicArr.insertAtEnd(element);
-                break;
-            case 2:
-                dynamicArr.deleteFromEnd();
-                break;
-            case 3:
-                dynamicArr.display();
-                break;
-            case 4:
-                exit(0);
-            default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        size++;
+    }
+
+    cin >> choice;
+
+    if (choice == 1) {
+        cin >> element;
+        if (size < MAX_SIZE) {
+            arr[size] = element;
+            size++;
+        } else {
+            cout << "Overflow condition: Array is full, cannot insert." << endl;
         }
+    } else if (choice == 2) {
+        if (size > 0) {
+            size--;
+        } else {
+            cout << "Underflow condition: Array is empty, cannot delete." << endl;
+        }
+    }
+
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
     }
 
     return 0;
