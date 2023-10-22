@@ -1,44 +1,55 @@
 #include <iostream>
 
-// Function to perform binary search in a sorted array
-int binarySearch(int arr[], int size, int target) {
+using namespace std;
+
+int binarySearch(int arr[], int size, int key) {
     int left = 0;
     int right = size - 1;
 
     while (left <= right) {
         int mid = left + (right - left) / 2;
 
-        if (arr[mid] == target) {
-            return mid; // Element found at index mid
+        if (arr[mid] == key) {
+            return mid;
         }
 
-        if (arr[mid] < target) {
+        if (arr[mid] < key) {
             left = mid + 1;
         } else {
             right = mid - 1;
         }
     }
 
-    return -1; // Element not found
+    return -1; // Return -1 if the element is not found.
 }
 
 int main() {
-    int arr[] = {10, 20, 30, 40, 50};
-    int size = sizeof(arr) / sizeof(arr[0]);
-    int target, result;
+    int arr[100];
+    int n, key, position;
 
-    std::cout << "Enter the element to search: ";
-    std::cin >> target;
+    cin >> n;
 
-    result = binarySearch(arr, size, target);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
 
-    switch (result) {
-        case -1:
-            std::cout << "Element not found in the array." << std::endl;
+    cin >> key;
+
+    int choice;
+    cout << "1. Binary Search" << endl;
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            position = binarySearch(arr, n, key);
+            if (position != -1) {
+                cout << "Element found at index: " << position << endl;
+            } else {
+                cout << "Element not found in the array." << endl;
+            }
             break;
         default:
-            std::cout << "Element found at index " << result << "." << std::endl;
-            break;
+            cout << "Invalid choice." << endl;
     }
 
     return 0;
