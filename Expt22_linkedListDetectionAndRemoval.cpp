@@ -2,48 +2,52 @@
 
 using namespace std;
 
-struct Node {
+struct ListNode {
     int data;
-    Node* next;
+    ListNode* next;
+    ListNode(int x) : data(x), next(nullptr) {}
 };
 
-Node* findCycleStart(Node* head) {
-    Node* slow = head;
-    Node* fast = head;
+ListNode* detectCycle(ListNode* head) {
+    if (!head) {
+        return nullptr; // No cycle in an empty list.
+    }
 
-    while (fast != nullptr && fast->next != nullptr) {
+    ListNode* slow = head;
+    ListNode* fast = head;
+
+    while (fast && fast->next) {
         slow = slow->next;
         fast = fast->next->next;
+
         if (slow == fast) {
-            break;
+            return slow; // Cycle detected, return the meeting point.
         }
     }
 
-    if (fast == nullptr || fast->next == nullptr) {
-        return nullptr; // No cycle
-    }
-
-    slow = head;
-    while (slow != fast) {
-        slow = slow->next;
-        fast = fast->next;
-    }
-
-    return slow;
+    return nullptr; // No cycle detected.
 }
 
-void removeCycle(Node* head, Node* cycleStart) {
-    Node* current = head;
-    while (current->next != cycleStart->next) {
-        current = current->next;
-        cycleStart = cycleStart->next;
+void removeCycle(ListNode* head, ListNode* cycleNode) {
+    if (!head || !cycleNode) {
+        return;
     }
-    cycleStart->next = nullptr;
+
+    ListNode* ptr1 = head;
+    ListNode* ptr2 = cycleNode;
+
+    while (ptr1->next != ptr2->next) {
+        ptr1 = ptr1->next;
+        ptr2 = ptr2->next;
+    }
+
+    // Remove the cycle
+    ptr2->next = nullptr;
 }
 
-void displayList(Node* head) {
-    Node* current = head;
-    while (current != nullptr) {
+void displayList(ListNode* head) {
+    ListNode* current = head;
+    while (current) {
         cout << current->data << " ";
         current = current->next;
     }
@@ -51,22 +55,21 @@ void displayList(Node* head) {
 }
 
 int main() {
-    Node* head = new Node{1, nullptr};
-    Node* cycleStart = new Node{2, nullptr};
-    head->next = cycleStart;
-    Node* cycleEnd = new Node{3, cycleStart};
-    cycleStart->next = cycleEnd;
-    Node* nonCycleNode = new Node{4, cycleEnd};
-    nonCycleNode->next = new Node{5, nullptr};
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
 
-    cout << "Linked List with Cycle:" << endl;
-    displayList(head);
+    // Create a cycle by connecting the last node to the second node
+    head->next->next->next->next->next = head->next;
 
-    Node* cycleEntryPoint = findCycleStart(head);
+    ListNode* cycleNode = detectCycle(head);
 
-    if (cycleEntryPoint != nullptr) {
-        cout << "Cycle Detected. Removing cycle." << endl;
-        removeCycle(head, cycleEntryPoint);
+    if (cycleNode) {
+        cout << "Cycle detected at node with value " << cycleNode->data << endl;
+        removeCycle(head, cycleNode);
+        cout << "Cycle removed." << endl;
     } else {
         cout << "No cycle detected." << endl;
     }
@@ -74,10 +77,12 @@ int main() {
     cout << "Linked List after removing the cycle:" << endl;
     displayList(head);
 
-    delete head;
-    delete cycleStart;
-    delete cycleEnd;
-    delete nonCycleNode;
+    // Clean up memory
+    while (head) {
+        ListNode* temp = head;
+        head = head->next;
+        delete temp;
+    }
 
     return 0;
 }
