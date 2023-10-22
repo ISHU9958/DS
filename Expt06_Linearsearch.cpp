@@ -1,32 +1,43 @@
 #include <iostream>
 
-// Function to perform linear search in an array
-int linearSearch(int arr[], int size, int target) {
+using namespace std;
+
+int linearSearch(int arr[], int size, int key) {
     for (int i = 0; i < size; i++) {
-        if (arr[i] == target) {
-            return i; // Element found at index i
+        if (arr[i] == key) {
+            return i;
         }
     }
-    return -1; // Element not found
+    return -1; // Return -1 if the element is not found.
 }
 
 int main() {
-    int arr[] = {10, 20, 30, 40, 50};
-    int size = sizeof(arr) / sizeof(arr[0]);
-    int target, result;
+    int arr[100];
+    int n, key, position;
 
-    std::cout << "Enter the element to search: ";
-    std::cin >> target;
+    cin >> n;
 
-    result = linearSearch(arr, size, target);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
 
-    switch (result) {
-        case -1:
-            std::cout << "Element not found in the array." << std::endl;
+    cin >> key;
+
+    int choice;
+    cout << "1. Linear Search" << endl;
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            position = linearSearch(arr, n, key);
+            if (position != -1) {
+                cout << "Element found at index: " << position << endl;
+            } else {
+                cout << "Element not found in the array." << endl;
+            }
             break;
         default:
-            std::cout << "Element found at index " << result << "." << std::endl;
-            break;
+            cout << "Invalid choice." << endl;
     }
 
     return 0;
