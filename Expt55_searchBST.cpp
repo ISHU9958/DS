@@ -3,22 +3,28 @@
 using namespace std;
 
 // Definition for a binary tree node.
-struct TreeNode {
+struct TreeNode
+{
     int val;
-    TreeNode* left;
-    TreeNode* right;
+    TreeNode *left;
+    TreeNode *right;
     TreeNode(int value) : val(value), left(nullptr), right(nullptr) {}
 };
 
 // Function to insert a new node into the BST
-TreeNode* insert(TreeNode* root, int value) {
-    if (root == nullptr) {
+TreeNode *insert(TreeNode *root, int value)
+{
+    if (root == nullptr)
+    {
         return new TreeNode(value);
     }
 
-    if (value < root->val) {
+    if (value < root->val)
+    {
         root->left = insert(root->left, value);
-    } else if (value > root->val) {
+    }
+    else if (value > root->val)
+    {
         root->right = insert(root->right, value);
     }
 
@@ -26,22 +32,36 @@ TreeNode* insert(TreeNode* root, int value) {
 }
 
 // Function to search for a value in the BST
-bool search(TreeNode* root, int value) {
-    if (root == nullptr) {
+bool search(TreeNode *root, int value)
+{
+    if (root == nullptr)
+    {
         return false;
     }
 
-    if (root->val == value) {
+    if (root->val == value)
+    {
         return true;
-    } else if (value < root->val) {
+    }
+    else if (value < root->val)
+    {
         return search(root->left, value);
-    } else {
+    }
+    else
+    {
         return search(root->right, value);
     }
 }
-
-int main() {
-    TreeNode* root = nullptr;
+void inorderTraversal(TreeNode* root){
+    if(root==NULL)
+        return;
+    inorderTraversal(root->left);
+    cout << root->val << " ";
+    inorderTraversal(root->right);
+}
+int main()
+{
+    TreeNode *root = nullptr;
 
     // Insert nodes into the BST
     root = insert(root, 50);
@@ -58,9 +78,12 @@ int main() {
     inorderTraversal(root);
     cout << endl;
 
-    if (search(root, valueToSearch)) {
+    if (search(root, valueToSearch))
+    {
         cout << valueToSearch << " found in the BST." << endl;
-    } else {
+    }
+    else
+    {
         cout << valueToSearch << " not found in the BST." << endl;
     }
 
