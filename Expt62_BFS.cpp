@@ -2,9 +2,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-class Solution {
-  public:
     vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         
         queue<int> q;
@@ -27,7 +24,6 @@ class Solution {
         return ans;
         
     }
-};
 
 int main() {
 
@@ -40,12 +36,11 @@ int main() {
             adj[u].push_back(v);
         }
 
-        Solution obj;
-        vector<int> ans = obj.bfsOfGraph(V, adj);
+      
+        vector<int> ans = bfsOfGraph(V, adj);
         for (int i = 0; i < ans.size(); i++) {
             cout << ans[i] << " ";
         }
         cout << endl;
     return 0;
 }
-// } Driver Code Ends
