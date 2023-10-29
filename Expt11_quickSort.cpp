@@ -8,19 +8,22 @@ void swap(int &a, int &b) {
     b = temp;
 }
 
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
+int partition(int arr[], int s, int e) {
+    int pivot = arr[s];
+    int i = s ;
+    int j=e;
 
-    for (int j = low; j < high; j++) {
-        if (arr[j] < pivot) {
+    while(i<j){
+        while(i<=e && arr[i]<=pivot){
             i++;
-            swap(arr[i], arr[j]);
         }
+        while(j>=0 && arr[j]>pivot){
+            j--
+        }
+        if(i<j) swap(arr[i],arr[j]);
     }
-
-    swap(arr[i + 1], arr[high]);
-    return i + 1;
+    swap(arr[s], arr[j]);
+    return j;
 }
 
 void quickSort(int arr[], int low, int high) {
