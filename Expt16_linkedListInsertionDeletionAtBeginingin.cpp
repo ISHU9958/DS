@@ -8,6 +8,9 @@ struct Node {
 };
 
 class LinkedList {
+
+private:
+    Node* head;
 public:
     LinkedList() {
         head = nullptr;
@@ -39,9 +42,6 @@ public:
         }
         cout << endl;
     }
-
-private:
-    Node* head;
 };
 
 int main() {
