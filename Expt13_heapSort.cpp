@@ -26,7 +26,7 @@ void heapSort(int arr[], int n) {
     while(size>=1) {
         swap(arr[size],arr[0]);
         size--;
-        heapify(arr, n, i);
+        heapify(arr, n, 0);
     }
 }
 
