@@ -22,7 +22,10 @@ void heapify(int arr[], int n, int i) {
 }
 
 void heapSort(int arr[], int n) {
-    for (int i = n / 2 - 1; i >= 0; i--) {
+    int size=n-1;
+    while(size>=1) {
+        swap(arr[size],arr[0]);
+        size--;
         heapify(arr, n, i);
     }
 }
