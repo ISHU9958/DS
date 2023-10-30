@@ -50,7 +50,6 @@ void display(spars &s){
 int main(){
     spars s;
     create(s);
-    transpose(s);
     display(s);
     return 0;
 }
